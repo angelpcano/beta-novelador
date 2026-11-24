@@ -16,14 +16,14 @@ Abre la URL que indique Vite. Sin variables de Supabase, el guardado funciona lo
 ## Funcionalidades
 - Editor de texto enriquecido con negrita, cursiva, encabezados y listas.
 - Ajustes de tipografía, tamaño e interlineado de lectura.
-- Varios proyectos independientes con autoguardado local en IndexedDB. La novela existente se migra a **Fiambre**.
-- Cambio de nombre de proyectos desde el selector para distinguir copias o proyectos con nombres repetidos.
-- Gestión de capítulos, estados, resúmenes y navegación.
+- Varios proyectos independientes con autoguardado local en IndexedDB; se pueden renombrar y eliminar. La novela existente se migra a **Fiambre**.
+- Gestión de capítulos, estados, resúmenes y navegación; permite eliminar capítulos y fijar hasta tres fotos de referencia por capítulo.
 - Fichas de personajes con arquetipo y avatares geométricos de diez colores.
-- Lienzo de Mapeo con notas pastel arrastrables, pegatinas y conexiones.
+- Lienzo de Mapeo con notas pastel arrastrables, pegatinas, conexiones y zoom.
 - Exportación del manuscrito como DOCX, TXT o PDF, además de copias JSON; compartir el texto desde dispositivos compatibles.
 - Tirada aleatoria de los dos dados narrativos, respetando el orden original de encuentros y arquetipos.
 - Exportación y restauración de copias JSON.
+- Nueve temas visuales, incluido Pistacho y Melocotón, con selector accesible en móvil.
 - Diseño adaptable a ordenador y móvil e instalación PWA.
 
 ## MUY IMPORTANTE: estado de las copias

@@ -37,6 +37,7 @@ export async function loadWorkspace(userId?: string): Promise<Workspace | null> 
       activeProjectId: projects.some(p => p.id === savedWorkspace.activeProjectId)
         ? savedWorkspace.activeProjectId
         : projects[0].id,
+      deletedProjectIds: savedWorkspace.deletedProjectIds ?? [],
     };
   }
 
