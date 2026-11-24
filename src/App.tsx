@@ -44,7 +44,16 @@ const promptTemplates:Array<(a:number,b:number,c:number)=>PromptPart[]>=[
 function buildPrompts(){const out:PromptPart[][]=[];for(let a=0;a<6;a++)for(let b=0;b<6;b++)for(let c=0;c<6;c++)if(a!==b&&b!==c&&a!==c)for(const t of promptTemplates)out.push(t(a,b,c));return out;}
 const prompts=buildPrompts();
 const formatTime=(s:number)=>{const h=Math.floor(s/3600),m=Math.floor((s%3600)/60);return h?`${h} h ${m} min`:`${m} min`;};
-const errorMessage=(error:unknown)=>error instanceof Error?error.message:'Error desconocido al conectar con Supabase.';
+const errorMessage=(error:unknown)=>{
+ if(typeof error==='string')return error;
+ const record=error&&typeof error==='object'?error as Record<string,unknown>:null;
+ const details=record?(['message','code','details','hint','status','statusCode'] as const).flatMap(key=>{const value=record[key];return typeof value==='string'&&value.trim()?[key==='message'?value:`${key}: ${value}`]:typeof value==='number'?[`${key}: ${value}`]:[]}):[];
+ if(error instanceof Error&&!details.includes(error.message))details.unshift(error.message);
+ if(details.length)return details.join(' · ');
+ if(error instanceof Error)return `${error.name}: ${error.message}`;
+ if(record){const keys=Object.keys(record);if(keys.length)return `Error sin mensaje (campos recibidos: ${keys.slice(0,8).join(', ')}).`;}
+ return `Error inesperado (${String(error)}).`;
+};
 
 export default function App(){
  const [workspace,setWorkspace]=useState<Workspace>(createWorkspace); const [loaded,setLoaded]=useState(false); const [loadedOwnerId,setLoadedOwnerId]=useState<string|null>(null); const [authUser,setAuthUser]=useState<User|null>(null); const [authReady,setAuthReady]=useState(!isCloudConfigured); const [authError,setAuthError]=useState(''); const [workspaceError,setWorkspaceError]=useState(''); const [syncError,setSyncError]=useState(''); const [syncReadyFor,setSyncReadyFor]=useState<string|null>(null); const [syncAttempt,setSyncAttempt]=useState(0); const [section,setSection]=useState('write'); const [mobileNav,setMobileNav]=useState(false); const [saveState,setSaveState]=useState('Cargando…'); const [font,setFont]=useState('Georgia'); const [fontSize,setFontSize]=useState(18); const [lineHeight,setLineHeight]=useState('1.65'); const [newName,setNewName]=useState(''); const [newRole,setNewRole]=useState(''); const [newColor,setNewColor]=useState(palette[0]); const [showCharacterForm,setShowCharacterForm]=useState(false); const [roll,setRoll]=useState<{enc:number;arch:number}|null>(null); const [toast,setToast]=useState(''); const [promptIndex,setPromptIndex]=useState(0); const [projectName,setProjectName]=useState(''); const [showProjectForm,setShowProjectForm]=useState(false); const [exportFormat,setExportFormat]=useState<'json'|'txt'|'docx'|'pdf'>('json'); const [connectingFrom,setConnectingFrom]=useState<string|null>(null); const [connectMode,setConnectMode]=useState(false); const dragRef=useRef<{id:string;clientX:number;clientY:number;x:number;y:number}|null>(null); const cloudQueue=useRef<Promise<void>>(Promise.resolve());
