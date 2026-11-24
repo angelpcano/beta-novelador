@@ -17,6 +17,7 @@ Abre la URL que indique Vite. Sin variables de Supabase, el guardado funciona lo
 - Editor de texto enriquecido con negrita, cursiva, encabezados y listas.
 - Ajustes de tipografía, tamaño e interlineado de lectura.
 - Varios proyectos independientes con autoguardado local en IndexedDB. La novela existente se migra a **Fiambre**.
+- Cambio de nombre de proyectos desde el selector para distinguir copias o proyectos con nombres repetidos.
 - Gestión de capítulos, estados, resúmenes y navegación.
 - Fichas de personajes con arquetipo y avatares geométricos de diez colores.
 - Lienzo de Mapeo con notas pastel arrastrables, pegatinas y conexiones.
@@ -30,6 +31,7 @@ Todos los cambios se guardan automáticamente en IndexedDB. Si Supabase está co
 
 ## Configurar Supabase para sincronizar entre dispositivos
 1. Crea un proyecto en Supabase y ejecuta `supabase/schema.sql` en el SQL Editor.
+   Si ya habías creado la tabla y aparece `permission denied for table novels`, ejecuta allí `GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE public.novels TO authenticated;`. Las políticas RLS siguen limitando cada operación a los proyectos del usuario autenticado.
 2. Activa el acceso por correo (enlace de acceso/OTP) en **Authentication → Providers → Email**.
 3. En **Authentication → URL Configuration**, configura la URL de GitHub Pages como *Site URL* y añádela a *Redirect URLs*. El formato de un repositorio normal es `https://USUARIO.github.io/REPOSITORIO/`.
 4. Copia la URL del proyecto y la clave pública `anon`/publishable. Nunca uses ni publiques la clave `service_role`.

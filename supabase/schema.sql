@@ -19,4 +19,6 @@ create policy "Users can update their own novels" on public.novels
 create policy "Users can delete their own novels" on public.novels
   for delete using (auth.uid() = user_id);
 
+grant select, insert, update, delete on table public.novels to authenticated;
+
 create index if not exists novels_user_updated_idx on public.novels(user_id, updated_at desc);
