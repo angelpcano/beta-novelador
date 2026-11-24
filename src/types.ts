@@ -1,0 +1,9 @@
+export type Chapter = {id:string; title:string; content:string; status:'Idea'|'Planificado'|'Escrito'|'Revisado'; summary:string; updatedAt:string};
+export type Character = {id:string; name:string; role:string; color:string; light:string; tags:string; description:string};
+export type ResearchStatus = 'Por investigar'|'Investigado ✅'|'En proceso';
+export type ResearchItem = {id:string; title:string; kind:'note'|'image'|'link'; status:ResearchStatus; note?:string; url?:string; imageData?:string; createdAt:string};
+export type MapStickerColor = 'Azul'|'Verde'|'Amarillo'|'Marrón'|'Rojo'|'Púrpura';
+export type MapNote = {id:string; text:string; color:'yellow'|'blue'|'green'; x:number; y:number; stickers:MapStickerColor[]};
+export type MapConnection = {id:string; from:string; to:string};
+export type Project = {id:string; name:string; chapters:Chapter[]; characters:Character[]; activeChapterId:string; updatedAt:string; research?:ResearchItem[]; theme?:string; targetLength?:string; customTarget?:number; activeSeconds?:number; mapNotes?:MapNote[]; mapConnections?:MapConnection[]};
+export type Workspace = {projects:Project[]; activeProjectId:string};
